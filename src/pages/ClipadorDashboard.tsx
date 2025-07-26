@@ -1,4 +1,5 @@
 import { ClipZoneHeader } from "@/components/ClipZoneHeader";
+import { AppSidebar } from "@/components/AppSidebar";
 import { StatsCard } from "@/components/StatsCard";
 import { ClipCard } from "@/components/ClipCard";
 import { RankingCard } from "@/components/RankingCard";
@@ -7,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { 
   Eye, 
   DollarSign, 
@@ -104,16 +106,18 @@ export default function ClipadorDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <ClipZoneHeader 
-        userType="clipador"
-        userName={clipadorData.name}
-        userAvatar={clipadorData.avatar}
-        rank={clipadorData.rank}
-        credits={clipadorData.credits}
-      />
-
-      <div className="container mx-auto px-6 py-8">
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full bg-background">
+        <AppSidebar 
+          userType="clipador"
+          userName={clipadorData.name}
+          userAvatar={clipadorData.avatar}
+          rank={clipadorData.rank}
+          credits={clipadorData.credits}
+        />
+        
+        <main className="flex-1 overflow-auto">
+          <div className="container mx-auto px-6 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
@@ -357,7 +361,9 @@ export default function ClipadorDashboard() {
             </Card>
           </TabsContent>
         </Tabs>
+          </div>
+        </main>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }
