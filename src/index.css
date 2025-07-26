@@ -2,39 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* ClipZone Design System - Gaming & Streaming Platform
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors - Dark gaming theme */
+    --background: 224 71% 4%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card system with glassmorphism */
+    --card: 224 71% 6%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 224 71% 6%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Gaming primary - Electric purple */
+    --primary: 270 91% 65%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Gaming secondary - Neon blue */
+    --secondary: 217 91% 60%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted elements */
+    --muted: 224 71% 10%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Neon green */
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Gaming tertiary - Bright orange */
+    --tertiary: 25 95% 53%;
+    --tertiary-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Status colors */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 45 93% 58%;
+    --warning-foreground: 0 0% 98%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* UI elements */
+    --border: 224 71% 14%;
+    --input: 224 71% 10%;
+    --ring: 270 91% 65%;
+
+    /* Gaming gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(270 91% 65%), hsl(217 91% 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(217 91% 60%), hsl(142 76% 36%));
+    --gradient-tertiary: linear-gradient(135deg, hsl(25 95% 53%), hsl(270 91% 65%));
+    --gradient-card: linear-gradient(135deg, hsl(224 71% 6% / 0.8), hsl(224 71% 8% / 0.6));
+    
+    /* Gaming shadows */
+    --shadow-glow: 0 0 20px hsl(270 91% 65% / 0.3);
+    --shadow-neon: 0 0 30px hsl(217 91% 60% / 0.4);
+    --shadow-card: 0 8px 32px hsl(224 71% 4% / 0.6);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.5rem;
 
@@ -101,5 +134,76 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Gaming utility classes */
+  .glass-card {
+    @apply backdrop-blur-sm border border-border/20;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+  
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .glow-neon {
+    box-shadow: var(--shadow-neon);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .btn-gaming {
+    @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105;
+    background: var(--gradient-primary);
+    box-shadow: 0 4px 15px hsl(270 91% 65% / 0.4);
+  }
+  
+  .btn-gaming:hover {
+    box-shadow: 0 6px 20px hsl(270 91% 65% / 0.6);
+  }
+  
+  .badge-rank {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-bold;
+    background: var(--gradient-secondary);
+    animation: pulse 2s infinite;
+  }
+  
+  .rank-gold {
+    background: linear-gradient(135deg, hsl(45 93% 58%), hsl(25 95% 53%));
+  }
+  
+  .rank-silver {
+    background: linear-gradient(135deg, hsl(0 0% 75%), hsl(0 0% 85%));
+    color: hsl(224 71% 4%);
+  }
+  
+  .rank-bronze {
+    background: linear-gradient(135deg, hsl(25 76% 31%), hsl(30 67% 48%));
+  }
+}
+
+@layer components {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from { box-shadow: 0 0 20px hsl(270 91% 65% / 0.4); }
+    to { box-shadow: 0 0 30px hsl(270 91% 65% / 0.8); }
   }
 }
